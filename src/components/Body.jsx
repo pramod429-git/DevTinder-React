@@ -12,6 +12,8 @@ const Body = () => {
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
+      // const res = await axios.get(BASE_URL + "/profile/view", {
+      //bypassed because of CORS error
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });

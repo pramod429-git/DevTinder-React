@@ -18,14 +18,16 @@ const NavBar = () => {
   };
   return (
     <div className="navbar bg-accent">
-      <div className="flex-1 mx-5">
-        <span className="text-black flex items-center">
-          <Link to="/" className="btn btn-ghost text-lg">
-            <FaComputer className="text-2xl" />
-            <span>Dev-Tinder</span>
-          </Link>
-        </span>
-      </div>
+      {userState && (
+        <div className="flex-1 mx-5">
+          <span className="text-black flex items-center">
+            <Link to="/" className="btn btn-ghost text-lg">
+              <FaComputer className="text-2xl" />
+              <span>Dev-Tinder</span>
+            </Link>
+          </span>
+        </div>
+      )}
 
       {userState && (
         <div className="flex-none gap-2 mx-5">
@@ -41,7 +43,7 @@ const NavBar = () => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  src={user && userState.photoUrl}
                 />
               </div>
             </div>
@@ -56,12 +58,13 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to="/connections">Connections</Link>
               </li>
               <li>
-                <Link to="/logout" onClick={handleLogout}>
-                  Logout
-                </Link>
+                <Link to="/requests">Requests</Link>
+              </li>
+              <li>
+                <Link onClick={handleLogout}>Logout</Link>
               </li>
             </ul>
           </div>

@@ -10,26 +10,25 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const navigate = useNavigate("");
+  const navigate = useNavigate();
 
-  const handleClick = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent page reload
     try {
       const result = await axios.post(
-        BASE_URL + "/login",
-        {
-          emailId,
-          password,
-        },
+        `${BASE_URL}/login`,
+        { emailId, password },
         { withCredentials: true }
       );
       dispatch(addUser(result.data.data));
       console.log(result);
       navigate("/");
     } catch (err) {
-      console.log(err);
-      setError(err?.response?.data);
+      console.error(err);
+      setError(err?.response?.data || "Login failed. Please try again.");
     }
   };
+
   return (
     <div className="flex justify-center items-center my-7">
       <div className="card bg-base-300 w-96 shadow-xl">
@@ -40,7 +39,10 @@ const Login = () => {
             className="rounded-xl -mt-16"
           />
         </figure>
-        <div className="card-body items-center text-center -mt-14">
+        <form
+          className="card-body items-center text-center -mt-14"
+          onSubmit={handleSubmit}
+        >
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -48,17 +50,20 @@ const Login = () => {
               fill="currentColor"
               className="h-4 w-4 opacity-70"
             >
-              <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
+              <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793l6.674 3.217c.206.1.446.1.652 0L15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
               <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
             </svg>
             <input
-              type="text"
+              type="email"
               className="grow"
               placeholder="Email"
               value={emailId}
               onChange={(e) => setEmailId(e.target.value)}
+              required
+              autoComplete="email"
             />
           </label>
+
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -75,21 +80,25 @@ const Login = () => {
             <input
               type="password"
               className="grow"
-              placeholder="password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
             />
           </label>
-          <p className="text-red-700">{error}</p>
+
+          {error && <p className="text-red-700">{error}</p>}
+
           <div className="card-actions mt-4">
-            <button className="btn btn-primary w-60" onClick={handleClick}>
+            <button type="submit" className="btn btn-primary w-60">
               Login
             </button>
           </div>
-          <div>
-            <p className="text-gray-600 font-bold">Discuss with Developers</p>
-          </div>
-        </div>
+          <p className="text-gray-600 font-bold mt-2">
+            Discuss with Developers
+          </p>
+        </form>
       </div>
     </div>
   );

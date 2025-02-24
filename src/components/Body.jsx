@@ -20,10 +20,10 @@ const Body = () => {
       console.log(res);
       dispatch(addUser(res.data.data));
     } catch (err) {
-      if (err.status === 401) {
+      if (err.status === 400) {
         navigate("/login");
       }
-      console.log(err);
+      console.log(err.response.data);
     }
   };
   useEffect(() => {

@@ -27,6 +27,7 @@ const Requests = () => {
       });
       const store = dispatch(addRequests(res.data.connectionRequest));
       console.log(store);
+      console.log(store.payload[0]._id);
     } catch (err) {
       console.log(err);
     }

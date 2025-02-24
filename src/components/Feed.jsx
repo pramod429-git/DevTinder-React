@@ -14,15 +14,24 @@ const Feed = () => {
         withCredentials: true,
       });
 
-      dispatch(addFeed(res.data));
-      console.log(feed);
+      const action = dispatch(addFeed(res.data));
+      console.log(action);
     } catch (err) {
-      console.log(err);
+      console.log(err.response.data);
     }
   };
   useEffect(() => {
     getFeed();
   }, []);
+  console.log(feed);
+  // if (!feed) return;
+  console.log(feed);
+  if (feed.length <= 0)
+    return (
+      <h1 className="flex justify-center m-10 text-2xl font-serif">
+        No User Found
+      </h1>
+    );
   return (
     feed && (
       <div className="flex justify-center m-5">

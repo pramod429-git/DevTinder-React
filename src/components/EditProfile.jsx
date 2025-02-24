@@ -20,6 +20,7 @@ const EditProfile = ({ user }) => {
 
   const saveProfile = async () => {
     try {
+      setError(""); //Clear previous errors not clear the current error
       const res = await axios.patch(
         //Since I am getting CORS error for PACTH method added not used BASE_URL
         // Matches Vite proxy setup
@@ -40,6 +41,7 @@ const EditProfile = ({ user }) => {
         setShowToast(false);
       }, 3000);
     } catch (err) {
+      console.log(err);
       setError(err?.response?.data);
     }
   };
@@ -65,7 +67,10 @@ const EditProfile = ({ user }) => {
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 value={photoUrl}
-                onChange={(e) => setPhotoUrl(e.target.value)}
+                onChange={(e) => {
+                  setPhotoUrl(e.target.value);
+                  setError("");
+                }}
               />
             </label>
             <label className="form-control w-full max-w-xs">
@@ -77,7 +82,10 @@ const EditProfile = ({ user }) => {
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                  setError("");
+                }}
               />
             </label>
             <label className="form-control w-full max-w-xs">
@@ -89,7 +97,10 @@ const EditProfile = ({ user }) => {
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                  setError("");
+                }}
               />
             </label>
             <label className="form-control w-full max-w-xs">
@@ -101,7 +112,10 @@ const EditProfile = ({ user }) => {
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 value={age}
-                onChange={(e) => setAge(e.target.value)}
+                onChange={(e) => {
+                  setAge(e.target.value);
+                  setError(""); //Clear error when user types
+                }}
               />
             </label>
             <label className="form-control w-full max-w-xs">
@@ -113,7 +127,10 @@ const EditProfile = ({ user }) => {
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 value={gender}
-                onChange={(e) => setGender(e.target.value)}
+                onChange={(e) => {
+                  setGender(e.target.value);
+                  setError("");
+                }}
               />
             </label>
             <label className="form-control w-full max-w-xs">
@@ -125,10 +142,13 @@ const EditProfile = ({ user }) => {
                 placeholder="Bio"
                 type="text"
                 value={about}
-                onChange={(e) => setAbout(e.target.value)}
+                onChange={(e) => {
+                  setAbout(e.target.value);
+                  setError("");
+                }}
               ></textarea>
             </label>
-            <p className="text-red-700">{error}</p>
+            {error && <p className="text-red-700">{error}</p>}
             <div className="card-actions mt-4">
               <button className="btn btn-primary w-60" onClick={saveProfile}>
                 Save Profile

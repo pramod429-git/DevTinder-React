@@ -7,6 +7,7 @@ import { addConnections } from "../utils/connectionSlice";
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store) => store.connections);
+
   const getConnection = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
@@ -24,7 +25,12 @@ const Connections = () => {
 
   if (!connections) return;
 
-  if (connections.length === 0) return <h1>No connections</h1>;
+  if (connections.length === 0)
+    return (
+      <h1 className="m-10 flex justify-center text-2xl font-serif">
+        No connections
+      </h1>
+    );
 
   return (
     <div>

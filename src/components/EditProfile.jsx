@@ -1,10 +1,10 @@
 import { useState } from "react";
 import UsersCard from "./UsersCard";
 import axios from "axios";
-// import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { LiaUserEditSolid } from "react-icons/lia";
+import { BASE_URL } from "../utils/constants";
 
 const EditProfile = ({ user }) => {
   if (!user) return;
@@ -24,7 +24,8 @@ const EditProfile = ({ user }) => {
       const res = await axios.patch(
         //Since I am getting CORS error for PACTH method added not used BASE_URL
         // Matches Vite proxy setup
-        "/api/profile/edit",
+        // "/api/profile/edit", //this code only works in local
+        BASE_URL + "/profile/edit",
         { firstName, lastName, age, gender, photoUrl, about },
         {
           // Include cookies

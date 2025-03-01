@@ -52,7 +52,7 @@ const Login = () => {
       <div className="card bg-base-300 w-96 shadow-xl">
         <figure className="px-10 pt-10">
           <img
-            src="https://www.logo.wine/a/logo/Tinder_(app)/Tinder_(app)-Logo.wine.svg"
+            src="https://cdn-icons-png.flaticon.com/512/2950/2950711.png"
             alt="Tinder"
             className="rounded-xl -mt-16"
           />

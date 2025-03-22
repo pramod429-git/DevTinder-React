@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -51,11 +52,12 @@ const Connections = () => {
           <tbody>
             {/* row 1 */}
             {connections.map((connection) => {
-              const { firstName, lastName, age, gender, about, photoUrl } =
+              const { _id, firstName, lastName, age, gender, about, photoUrl } =
                 connection;
               //return <h1 key={connection._id}>{firstName + " " + lastName}</h1>;
               return (
-                <tr key={connection._id}>
+                <tr key={_id}>
+                  {console.log(_id)}
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
@@ -67,9 +69,11 @@ const Connections = () => {
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">
-                          {firstName + " " + lastName}
-                        </div>
+                        <Link to={"/chat/" + _id}>
+                          <div className="font-bold">
+                            {firstName + " " + lastName}
+                          </div>
+                        </Link>
                       </div>
                     </div>
                   </td>

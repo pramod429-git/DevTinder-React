@@ -8,14 +8,14 @@ export default defineConfig({
   // eventhough I have added proper header and patch method in server
   //The Vite proxy made the frontend and backend appear as the same origin
   //below code only run for local
-  // server: {
-  //   proxy: {
-  //     "/api": {
-  //       target: "http://localhost:7777", // Your Express backend URL
-  //       changeOrigin: true,
-  //       secure: false,
-  //       rewrite: (path) => path.replace(/^\/api/, ""), // Removes '/api' prefix
-  //     },
-  //   },
-  // },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:7777", // Your Express backend URL
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ""), // Removes '/api' prefix
+      },
+    },
+  },
 });
